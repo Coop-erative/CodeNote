@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
 
 @Controller
 public class HomeController extends ActionController {
@@ -36,7 +33,16 @@ public class HomeController extends ActionController {
     }
 
     //Edit
-
+    @RequestMapping(value = "/edit/{id}")
+    public String edit(@PathVariable(name = "id") int id) {
+        noteRepository.findById(id);
+        return "/edit";
+    }
+    @RequestMapping(value ="/save", method = RequestMethod.POST)
+    public String saveNote(@ModelAttribute("note") Note note) {
+        noteRepository.save(note);
+        return "/edit";
+    }
 
     //Search
     @RequestMapping(value = "/search")
