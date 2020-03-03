@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<!--Navigation top and side-->
+<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: side-nav"></div>
+
+<!--Search-->
+<div class="container" style="margin-top: 60px; margin-left: 110px;">
+    <form method="post" class="searchNotes">
+<!--        <input type="text" th:field="${}" name="search text">-->
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+</body>
+</html>
+
