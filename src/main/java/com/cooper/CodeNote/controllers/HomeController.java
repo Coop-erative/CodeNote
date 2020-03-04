@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 public class HomeController extends ActionController {
 
@@ -33,15 +35,17 @@ public class HomeController extends ActionController {
     }
 
     //Edit
-    @RequestMapping(value = "/edit/{id}")
-    public String edit(@PathVariable(name = "id") int id) {
-        noteRepository.findById(id);
-        return "/edit";
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") int id, Model model) {
+        Optional<Note> note = noteRepository.findById(id);
+        model.addAttribute("note",note);
+        return "edit";
     }
-    @RequestMapping(value ="/save", method = RequestMethod.POST)
-    public String saveNote(@ModelAttribute("note") Note note) {
+    @PostMapping("/update/{id}")
+    public String updateNote(@PathVariable("id") int id, Note note, Model model) {
         noteRepository.save(note);
-        return "/edit";
+        model.addAttribute("note", noteRepository.findAll());
+        return "index";
     }
 
     //Search
